@@ -1,0 +1,81 @@
+kube-prometheus-stack:
+  alertmanager:
+    enabled: false
+  defaultRules:
+    create: false
+  grafana:
+    enabled: true
+    ingress:
+      enabled: true
+      ingressClassName: nginx
+      hosts:
+      - grafana.k3s.maxhomelab.fi
+      path: /
+      tls:
+      - hosts:
+        - grafana.k3s.maxhomelab.fi
+        secretName: grafana-tls 
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+
+    persistence:
+      enabled: true
+      type: sts
+      storageClassName: "grafana-nfs-csi"
+      accessModes:
+        - ReadWriteOnce
+      size: 5Gi
+      finalizers:
+        - kubernetes.io/pvc-protection
+
+  kube-state-metrics:
+    prometheus:
+      monitor:
+        enabled: true
+        relabelings:
+        - action: replace
+          sourceLabels:
+          - __meta_kubernetes_endpoint_node_name
+          targetLabel: node
+        scheme: http
+    selfMonitor:
+      enabled: true
+  prometheus:
+    ingress:
+      enabled: true
+      hosts:
+      - prometheus.k3s.maxhomelab.fi
+      ingressClassName: nginx
+      paths:
+      - /
+      tls:
+      - hosts:
+        - prometheus.k3s.maxhomelab.fi
+        secretName: prometheus-tls
+      annotations:
+        cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    prometheusSpec:
+      ruleSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: false
+      retention: 14d
+      storageSpec:
+        volumeClaimTemplate:
+          spec:
+            storageClassName: prometheus-nfs-csi
+            accessModes: ["ReadWriteOnce"]
+            resources:
+              requests:
+                storage: 80Gi
+
+# These require some work to get working
+  kubeControllerManager:
+    enabled: false
+  kubeProxy:
+    enabled: false
+  kubeEtcd:
+    enabled: false
+  kubeScheduler:
+    enabled: false
+    
+  defaultRules:
+    create: true

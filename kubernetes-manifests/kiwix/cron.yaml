@@ -1,0 +1,31 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: kiwix-library-updater
+  namespace: kiwix
+spec:
+  schedule: "0 3 * * *" # every day at 03:00
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          restartPolicy: OnFailure
+          containers:
+            - name: updater
+              image: ghcr.io/kiwix/kiwix-tools:3.7.0
+              command: ["/bin/sh", "-c"]
+              args:
+                - |
+                  echo "Updating library.xml..."
+                  for zim in /data/*.zim; do
+                    echo "adding $zim"
+                    kiwix-manage /data/library.xml add "$zim" || true
+                  done
+                  echo "Update finnished"
+              volumeMounts:
+                - name: kiwix-storage
+                  mountPath: /data
+          volumes:
+            - name: kiwix-storage
+              persistentVolumeClaim:
+                claimName: kiwix-pvc

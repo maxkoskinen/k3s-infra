@@ -1,0 +1,4 @@
+#githubConfigUrl: "https://github.com/maxkoskinen/{repo_name}"
+githubConfigSecret: github-token
+maxRunners: 5
+minRunners: 1

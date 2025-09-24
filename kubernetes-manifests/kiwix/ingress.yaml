@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: kiwix
+  namespace: kiwix
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: kiwix.k3s.maxhomelab.fi
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: kiwix
+                port:
+                  number: 80
+  tls:
+    - hosts:
+        - kiwix.k3s.maxhomelab.fi
+      secretName: kiwix-tls

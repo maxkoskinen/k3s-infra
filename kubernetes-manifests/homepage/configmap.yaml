@@ -1,0 +1,126 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: homepage
+  namespace: homepage
+  labels:
+    app.kubernetes.io/name: homepage
+data:
+  kubernetes.yaml: |
+    mode: cluster
+  settings.yaml: |
+    title: JaqLab
+
+    theme: dark
+    color: slate
+
+    headerStyle: boxed
+    description: A description of my awesome homepage
+
+    providers:
+      openweathermap: openweathermapapikey
+      weatherapi: weatherapiapikey
+
+
+    disableCollapse: true
+    useEqualHeights: true
+    hideVersion: true
+  custom.css: ""
+  custom.js: ""
+  bookmarks.yaml: |
+    - Developer:
+        - Github:
+            - abbr: GH
+              href: https://github.com/
+        - Cluudfrare:
+            - abbr: CF
+              href: https://www.cloudflare.com/en-gb/
+        - Hetzner:
+            - abbr: HZ
+              href: https://accounts.hetzner.com/login
+    - Social:
+      - Reddit:
+          - abbr: RE
+            href: https://reddit.com/
+    - Entertainment:
+      - YouTube:
+          - abbr: YT
+            href: https://youtube.com/
+      - HBO Max:
+          - addr: MAX
+            href: https://max.com
+  services.yaml: |
+    - Hypervisor & Servers:
+        - Proxmox:
+            icon: proxmox.png
+            href: https://optiflex.local.maxhomelab.fi:8006
+            description: Proxmox VE
+        - NAS:
+            icon: synology.png
+            href: https://booty.local.maxhomelab.fi
+            description: Synology Disk Station
+    - Game:
+        - Minecraft:
+            icon: minecraft.png
+            widget:
+              type: minecraft
+              url: udp://mc.maxhomelab.fi
+
+    - DNS:
+        - Pi-Hole:
+            icon: pi-hole.svg
+            href: "https://pihole.local.maxhomelab.fi"
+            description: LXC
+            widget:
+              type: pihole
+              url: "https://pihole.local.maxhomelab.fi"
+              version: 6
+              key: "{{HOMEPAGE_VAR_piholeApiToken}}"
+
+    - Home Automation:
+        - Home Assistant:
+            icon: home-assistant.svg
+            href: "https://ha.local.maxhomelab.fi"
+            description: home
+            widget:
+              type: homeassistant
+              url: "https://ha.local.maxhomelab.fi"
+              key: "{{HOMEPAGE_VAR_homeAssistantApiToken}}"
+
+    - Monitoring:
+        - Grafana:
+            icon: grafana.png
+            href: "https://grafana.k3s.maxhomelab.fi"
+            widget:
+              type: grafana
+              url: "https://grafana.k3s.maxhomelab.fi"
+              username: "{{HOMEPAGE_VAR_grafanaUsername}}"
+              password: "{{HOMEPAGE_VAR_grafanaPassword}}"
+
+    - Network:
+        - UniFi:
+            icon: unifi.svg
+            href: "{{HOMEPAGE_VAR_unifi_network_url}}"
+            description: network
+            widget:
+              type: unifi
+              url: "{{HOMEPAGE_VAR_unifi_network_url}}"
+              username: "{{HOMEPAGE_VAR_unifiNetworkUsername}}"
+              password: "{{HOMEPAGE_VAR_unifiNetworkPassword}}" 
+  widgets.yaml: |
+    - kubernetes:
+        cluster:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+          label: "cluster"
+        nodes:
+          show: true
+          cpu: true
+          memory: true
+          showLabel: true
+    - search:
+        provider: duckduckgo
+        target: _blank
+  docker.yaml: ""

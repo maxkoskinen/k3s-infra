@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: vaultwarden-nfs-csi
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: floppy1.k3s.maxhomelab.fi
+  share: /volume1/vaultwarden
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.2

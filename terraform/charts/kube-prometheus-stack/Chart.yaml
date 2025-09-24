@@ -1,0 +1,9 @@
+apiVersion: v2
+appVersion: "v0.83.0" # kube-prometheus-stack version, this is for reference only, update this field when updating the dependency chart
+description: kube-prometheus-stack, including prometheus, node-exporters, operator, kube-state-metrics, grafana and alertmanager
+name: prometheus
+version: 77.1.0 # Increase this every time you make changes
+dependencies:
+- name: "kube-prometheus-stack" # kube-prometheus-stack, https://github.com/prometheus-community/helm-charts/tree/main/charts/kube-prometheus-stack
+  version: "77.1.0"
+  repository: "https://prometheus-community.github.io/helm-charts"

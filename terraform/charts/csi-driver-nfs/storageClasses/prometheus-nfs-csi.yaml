@@ -1,0 +1,12 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+  name: prometheus-nfs-csi
+provisioner: nfs.csi.k8s.io
+parameters:
+  server: floppy1.k3s.maxhomelab.fi
+  share: /volume1/prometheus
+reclaimPolicy: Retain
+volumeBindingMode: Immediate
+mountOptions:
+  - nfsvers=4.2

@@ -13,7 +13,7 @@ resource "kubernetes_secret" "vaultwarden_secret" {
   data = {
     SMTP_USERNAME = var.mail_smtp_username
     SMTP_PASSWORD = var.mail_smtp_password
-    ADMIN_TOKEN = var.vaultwarden_admin_token
+    ADMIN_TOKEN   = var.vaultwarden_admin_token
   }
   type = "Opaque"
 

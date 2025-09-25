@@ -69,7 +69,7 @@ data:
     - DNS:
         - Pi-Hole:
             icon: pi-hole.svg
-            href: "https://pihole.local.maxhomelab.fi"
+            href: "https://pihole.local.maxhomelab.fi/admin"
             description: LXC
             widget:
               type: pihole

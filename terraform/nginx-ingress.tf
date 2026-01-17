@@ -1,10 +1,10 @@
 resource "helm_release" "nginx_ingress" {
-  name             = "nginx-ingress"
-  namespace        = "nginx-ingress"
-  repository       = "https://charts.bitnami.com/bitnami"
-  chart            = "nginx-ingress-controller"
-  version          = "12.0.7"
+  name             = "ingress-nginx"
+  namespace        = "ingress-nginx"
+  repository       = "https://kubernetes.github.io/ingress-nginx"
+  chart            = "ingress-nginx"
+  version          = "4.14.1"
   create_namespace = true
 
-  values = [file("${path.module}/charts/nginx-ingress/values.yaml")]
+  values = [file("${path.module}/charts/ingress-nginx/values.yaml")]
 }

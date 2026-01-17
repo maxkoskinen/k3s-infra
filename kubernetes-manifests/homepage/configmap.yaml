@@ -57,7 +57,7 @@ data:
             description: Proxmox VE
         - NAS:
             icon: synology.png
-            href: https://booty.local.maxhomelab.fi
+            href: https://booty.maxhomelab.fi
             description: Synology Disk Station
     - Game:
         - Minecraft:
@@ -69,22 +69,22 @@ data:
     - DNS:
         - Pi-Hole:
             icon: pi-hole.svg
-            href: "https://pihole.local.maxhomelab.fi/admin"
+            href: "https://dns.maxhomelab.fi/admin"
             description: LXC
             widget:
               type: pihole
-              url: "https://pihole.local.maxhomelab.fi"
+              url: "https://dns.maxhomelab.fi"
               version: 6
               key: "{{HOMEPAGE_VAR_piholeApiToken}}"
 
     - Home Automation:
         - Home Assistant:
             icon: home-assistant.svg
-            href: "https://ha.local.maxhomelab.fi"
+            href: "https://ha.maxhomelab.fi"
             description: home
             widget:
               type: homeassistant
-              url: "https://ha.local.maxhomelab.fi"
+              url: "https://ha.maxhomelab.fi"
               key: "{{HOMEPAGE_VAR_homeAssistantApiToken}}"
 
     - Monitoring:
@@ -106,7 +106,7 @@ data:
               type: unifi
               url: "{{HOMEPAGE_VAR_unifi_network_url}}"
               username: "{{HOMEPAGE_VAR_unifiNetworkUsername}}"
-              password: "{{HOMEPAGE_VAR_unifiNetworkPassword}}" 
+              password: "{{HOMEPAGE_VAR_unifiNetworkPassword}}"
   widgets.yaml: |
     - kubernetes:
         cluster:

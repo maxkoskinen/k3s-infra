@@ -14,7 +14,7 @@ kube-prometheus-stack:
       tls:
       - hosts:
         - grafana.k3s.maxhomelab.fi
-        secretName: grafana-tls 
+        secretName: grafana-tls
       annotations:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
 
@@ -57,7 +57,7 @@ kube-prometheus-stack:
     prometheusSpec:
       ruleSelectorNilUsesHelmValues: false
       serviceMonitorSelectorNilUsesHelmValues: false
-      retention: 14d
+      retention: 30d
       storageSpec:
         volumeClaimTemplate:
           spec:
@@ -76,6 +76,3 @@ kube-prometheus-stack:
     enabled: false
   kubeScheduler:
     enabled: false
-    
-  defaultRules:
-    create: true

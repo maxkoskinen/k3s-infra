@@ -19,6 +19,8 @@ resource "kubernetes_secret" "cloudflare_api_token" {
     api-token = var.cloudflare_api_token
   }
   type = "Opaque"
+
+  depends_on = [helm_release.cert_manager]
 }
 
 # Staging ClusterIssuer

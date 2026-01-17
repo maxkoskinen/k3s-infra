@@ -30,3 +30,13 @@ variable "vaultwarden_admin_token" {
   type      = string
   sensitive = true
 }
+
+variable "external_services" {
+  description = "Externally hosted services exposed via Kubernetes ingress"
+  type = map(object({
+    ip            = string
+    port          = number
+    domain        = string
+    backend_https = bool
+  }))
+}

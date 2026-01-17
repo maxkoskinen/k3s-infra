@@ -24,4 +24,3 @@ provider "helm" {
     config_context = "k3s-maxhomelab"
   }
 }
-

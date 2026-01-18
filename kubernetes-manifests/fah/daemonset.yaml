@@ -1,0 +1,52 @@
+---
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: fah-worker
+  namespace: foldingathome
+spec:
+  selector:
+    matchLabels:
+      app: fah-worker
+  template:
+    metadata:
+      labels:
+        app: fah-worker
+    spec:
+      containers:
+      - name: fah-worker
+        image: lscr.io/linuxserver/foldingathome:latest
+        imagePullPolicy: Always
+        env:
+        - name: PUID
+          value: "1000"
+        - name: PGID
+          value: "1000"
+        - name: TZ
+          value: "Europe/Helsinki"
+        - name: K3S_POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: spec.nodeName
+        - name: MACHINE_NAME
+          value: $(K3S_POD_NAME)
+        - name: ACCOUNT_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: fah-secrets
+              key: account_token
+        resources:
+          limits:
+            cpu: "3000m"
+            memory: "2Gi"
+          requests:
+            cpu: "1000m"
+            memory: "512Mi"
+        volumeMounts:
+        - name: nfs-storage
+          mountPath: /config
+          subPathExpr: $(K3S_POD_NAME)
+      volumes:
+      - name: nfs-storage
+        persistentVolumeClaim:
+          claimName: fah-nfs-pvc

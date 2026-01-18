@@ -96,6 +96,9 @@ data:
               url: "https://grafana.k3s.maxhomelab.fi"
               username: "{{HOMEPAGE_VAR_grafanaUsername}}"
               password: "{{HOMEPAGE_VAR_grafanaPassword}}"
+        - Folding@Home:
+            icon: foldingathome.png
+            href: "https://v8-4.foldingathome.org/machines"
 
     - Network:
         - UniFi:

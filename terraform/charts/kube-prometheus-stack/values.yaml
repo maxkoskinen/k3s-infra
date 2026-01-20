@@ -56,7 +56,7 @@ kube-prometheus-stack:
         cert-manager.io/cluster-issuer: "letsencrypt-prod"
     prometheusSpec:
       ruleSelectorNilUsesHelmValues: false
-      serviceMonitorSelectorNilUsesHelmValues: false
+      serviceMonitorSelectorNilUsesHelmValues: true
       retention: 30d
       storageSpec:
         volumeClaimTemplate:
@@ -67,6 +67,17 @@ kube-prometheus-stack:
               requests:
                 storage: 80Gi
 
+  nodeExporter:
+    enabled: true
+    operatingSystems:
+      linux:
+        enabled: true
+      aix:
+        enabled: false
+      darwin:
+        enabled: false
+
+
 # These require some work to get working
   kubeControllerManager:
     enabled: false
@@ -76,3 +87,15 @@ kube-prometheus-stack:
     enabled: false
   kubeScheduler:
     enabled: false
+  kubelet:
+    enabled: true
+    jobNameOverride: "k3s-server"
+    serviceMonitor:
+      enabled: true
+      cAdvisorRelabelings:
+        - action: replace
+          sourceLabels: [__metrics_path__]
+          targetLabel: metrics_path
+        - action: replace
+          targetLabel: cluster
+          replacement: k3s-maxhomelab

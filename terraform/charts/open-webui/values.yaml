@@ -1,0 +1,23 @@
+ingress:
+  enabled: true
+  host: chat.k3s.maxhomelab.fi
+  class: nginx
+  tls: true
+  annotations:
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+  existingSecret: openweb-ui-tls
+
+persistence:
+  enabled: true
+  size: 20Gi
+  storageClass: "open-webui-nfs-csi"
+  accessModes:
+    - ReadWriteMany
+
+pipelines:
+  enabled: false
+
+ollama:
+  enabled: false
+ollamaUrls:
+  - "http://athena.maxhomelab.fi:11434"
